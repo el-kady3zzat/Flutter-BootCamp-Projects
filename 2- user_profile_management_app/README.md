@@ -1,3 +1,7 @@
+---
+# NOTE! **Main Repo and Contributors**: [UPM-App](https://github.com/Mostafa11412/user_profile_management_app)
+---
+
 # User Profile Management App
 
 This is a **Flutter-based application** designed to manage user profiles. It allows users to perform CRUD (Create, Read, Update, Delete) operations on user data. The app integrates with a REST API (`jsonplaceholder.typicode.com`) to fetch and manipulate user data, and it also uses **SharedPreferences** for offline data storage.
@@ -130,10 +134,4 @@ This project demonstrates a clean and modular approach to building a Flutter app
 ### Video
 
 https://drive.google.com/file/d/1lARIEML571ZFkrW8r8pL9aH7cGyFnnQU/view?usp=sharing
-
 ---
-
-
-## Contributors and The Main Repo
-
-["UPM-App"]("https://github.com/Mostafa11412/user_profile_management_app")
