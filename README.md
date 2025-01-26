@@ -1,2 +1,1 @@
-# Flutter-BootCamp-Projects
- 
+## This repository contains projects from the 'Mobile Development by Flutter Bootcamp' provided by [Sprints](https://sprints.ai/)
