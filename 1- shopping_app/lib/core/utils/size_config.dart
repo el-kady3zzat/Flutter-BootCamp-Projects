@@ -26,4 +26,8 @@ class SizeConfig {
     // Print the default size value to the console for debugging purposes.
     debugPrint('=====\ndefaultSize = $defaultSize\n=====');
   }
+
+  static Widget vSpace(double space) {
+    return SizedBox(height: SizeConfig.defaultSize! * space);
+  }
 }

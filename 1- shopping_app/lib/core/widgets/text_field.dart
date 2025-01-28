@@ -7,12 +7,13 @@ class SnaporaTextField extends StatefulWidget {
   final String hint;
   final IconData icon;
   final GlobalKey<FormFieldState> fieldKey;
-  const SnaporaTextField(
-      {super.key,
-      required this.controller,
-      required this.hint,
-      required this.icon,
-      required this.fieldKey});
+  const SnaporaTextField({
+    super.key,
+    required this.controller,
+    required this.hint,
+    required this.icon,
+    required this.fieldKey,
+  });
 
   @override
   State<SnaporaTextField> createState() => _SnaporaTextFieldState();
@@ -57,6 +58,7 @@ class _SnaporaTextFieldState extends State<SnaporaTextField> {
   }
 
   String? validation(String? value) {
+    debugPrint('=====\nValidation\n=====');
     if (value!.isEmpty) {
       return 'Required Field';
     }
@@ -74,6 +76,7 @@ class _SnaporaTextFieldState extends State<SnaporaTextField> {
   }
 
   String? passValidation(String pass) {
+    debugPrint('=====\npassValidation\n=====');
     // At least 8 characters
     if (pass.length < 8) {
       return 'Enter at least 8 characters';
@@ -99,6 +102,7 @@ class _SnaporaTextFieldState extends State<SnaporaTextField> {
   }
 
   void onChange() {
+    debugPrint('=====\nonChange\n=====');
     widget.fieldKey.currentState!.validate();
   }
 

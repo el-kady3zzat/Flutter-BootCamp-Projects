@@ -1,36 +1,55 @@
-## Updates: Localization Implementation Using `easy_localization`
+# Flutter Auth & Shopping App
 
-### Overview
-This update introduces **localization** to the app using the `easy_localization` package. It allows the app to support multiple languages, enhancing usability for a broader audience. The app now supports **English** and **Arabic**, with additional languages easily integrable.
+A Flutter app with **Firebase Authentication**, **Bloc state management**, and a shopping interface. Users can register, log in, and browse products.
+
+## Key Features
+- **Authentication**:  
+  - Firebase-powered registration/login with error handling.  
+  - Login state persistence via `SharedPreferences`.  
+- **State Management**:  
+  - Bloc pattern for handling auth states (`AuthBloc`, `AuthEvent`, `AuthState`).  
+- **Shopping Page**:  
+  - Product carousels, grids, and hot offers.  
+  - Responsive UI with `SizeConfig` for screen adaptation.  
+- **Localization**:  
+  - Supports English and Arabic via `EasyLocalization`.  
+
+## Project Structure
+| File                | Purpose                                  |
+|---------------------|------------------------------------------|
+| `auth_services.dart`| Firebase auth logic (register/login).    |
+| `user_model.dart`   | Data model for users.                    |
+| `shared_prefs.dart` | Local storage (login state/user data).   |
+| `auth_bloc.dart`    | Bloc logic for auth flows.               |
+| `signin_screen.dart`| Sign-in UI with form validation.         |
+| `signup_screen.dart`| Sign-up UI with password confirmation.   |
+| `shopping_page.dart`| Product listings and interactive UI.     |
+| `main.dart`         | App entry, theme, and routing.           |
+
+## Dependencies
+- `firebase_auth`, `firebase_core`  
+- `flutter_bloc`  
+- `shared_preferences`  
+- `easy_localization`  
+
+## Setup
+1. Clone the repo.  
+2. Run `flutter pub get`.  
+3. Configure Firebase (add `google-services.json`/`GoogleService-Info.plist`).  
+4. Run `flutter run`.  
 
 ---
 
-### Key Features and Changes
-
-#### 1. **Localization Setup**
-   - Configured the app to use the `easy_localization` package for multi-language support.
-   - Added the following locales:
-     - English: `Locale('en')`
-     - Arabic: `Locale('ar')`
-   - Set up a fallback locale: `Locale('en')` ensures English is used as the default if the user's language is unsupported.
-   - Translations are stored in `assets/translations`.
-
-   **Main Code in `main.dart`:**
-   ```dart
-   runApp(
-     EasyLocalization(
-       supportedLocales: const [Locale('en'), Locale('ar')],
-       path: 'assets/translations',
-       fallbackLocale: const Locale('en'),
-       child: const MyApp(),
-     ),
-   );
-  ```
-
-### Output
-<p align="center"><img src="https://github.com/user-attachments/assets/4e2db253-ea27-4ef3-b15f-d4fdea75a81d"  alt="Output1" height="844" width="431.38"/></p>
-<p align="center"><img src="https://github.com/user-attachments/assets/b91ea133-c2ff-44a8-8810-0e11f4f41084"  alt="Output2" height="844" width="431.38"/></p>
+## Output
+**Screenshots**
+<p align="center"><img src="https://github.com/user-attachments/assets/70e56681-7d8e-4d30-a79a-209814de78e7" alt="Login" height="844" width="431.38"/></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/c83a7e3f-3221-4cfa-ac13-e7913ef3f780" alt="Register" height="844" width="431.38"/></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/0c54a16c-6e45-4d02-8356-db4702d5cb0e" alt="Home" height="844" width="431.38"/></p>
 
 **Video**
 
-https://github.com/user-attachments/assets/eb8a477e-6410-4430-9d56-4172362d8c35
+https://github.com/user-attachments/assets/3801652a-3195-48b7-84f9-22a49d827154
+
+---
+
+**Note**: Built for learning Flutter, Firebase, and state management best practices.  

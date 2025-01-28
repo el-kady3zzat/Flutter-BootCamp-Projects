@@ -1,7 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:first_flutter_project/core/utils/route_animation.dart';
 import 'package:first_flutter_project/core/utils/size_config.dart';
 import 'package:first_flutter_project/core/widgets/product_card.dart';
 import 'package:first_flutter_project/data/models/product_model.dart';
+import 'package:first_flutter_project/data/prefs/shared_prefs.dart';
+import 'package:first_flutter_project/presentation/auth/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 
 class ShoppingPage extends StatefulWidget {
@@ -24,6 +27,18 @@ class _ShoppingPageState extends State<ShoppingPage> {
           'shopping_page'.tr(),
           style: const TextStyle(color: Colors.white),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Prefs.setLoginState(isLogged: false);
+              Navigator.of(context).pushAndRemoveUntil(
+                createFadeRoute(SigninScreen()),
+                (route) => false,
+              );
+            },
+            icon: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
+          ),
+        ],
       ),
       body: _body(),
     );

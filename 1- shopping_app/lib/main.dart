@@ -1,14 +1,27 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:first_flutter_project/core/utils/size_config.dart';
-import 'package:first_flutter_project/presentation/auth/signup_page.dart';
-import 'package:first_flutter_project/presentation/home_page.dart';
-import 'package:first_flutter_project/presentation/shopping_page.dart';
+import 'package:first_flutter_project/data/prefs/shared_prefs.dart';
+import 'package:first_flutter_project/firebase_options.dart';
+import 'package:first_flutter_project/presentation/auth/blocs/auth_bloc.dart';
+import 'package:first_flutter_project/presentation/auth/screens/signin_screen.dart';
+import 'package:first_flutter_project/presentation/auth/screens/signup_screen.dart';
+import 'package:first_flutter_project/presentation/home/screens/home_page.dart';
+import 'package:first_flutter_project/presentation/shopping/screens/shopping_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
 
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await Prefs.init();
+
+  await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
@@ -40,7 +53,13 @@ class MyApp extends StatelessWidget {
 
       theme: ThemeData(
         // Sets the color of the AppBar in the app's theme.
-        appBarTheme: AppBarTheme(color: Colors.blue[900]),
+        appBarTheme: AppBarTheme(
+          color: Colors.blue[900],
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.blue[900],
+            statusBarIconBrightness: Brightness.light,
+          ),
+        ),
 
         // Specifies the default font family for the app.
         fontFamily: 'Suwannaphum',
@@ -53,12 +72,24 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      // Sets the initial screen of the app to be the HomePage widget.
-      home: const SignupPage(),
+      // Sets the initial screen of the app.
+      home: Prefs.isLogged()
+          ? const ShoppingPage()
+          : BlocProvider(
+              create: (context) => AuthBloc(),
+              child: SigninScreen(),
+            ),
       routes: {
-        'signup': (context) => const SignupPage(),
-        'home': (context) => const HomePage(),
-        'shopping': (context) => const ShoppingPage(),
+        '/signin': (context) => BlocProvider(
+              create: (context) => AuthBloc(),
+              child: SigninScreen(),
+            ),
+        '/signup': (context) => BlocProvider(
+              create: (context) => AuthBloc(),
+              child: SignupScreen(),
+            ),
+        '/home': (context) => const HomePage(),
+        '/shopping': (context) => const ShoppingPage(),
       },
     );
   }

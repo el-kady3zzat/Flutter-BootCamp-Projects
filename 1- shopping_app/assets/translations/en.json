@@ -13,5 +13,6 @@
     "hot_offers": "Hot Offers",
     "name": "name",
     "password": "password",
-    "email": "email"
+    "email": "email",
+    "login": "Login"
 }
