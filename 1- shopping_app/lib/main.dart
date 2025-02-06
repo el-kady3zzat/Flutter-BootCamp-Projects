@@ -7,6 +7,7 @@ import 'package:first_flutter_project/presentation/auth/blocs/auth_bloc.dart';
 import 'package:first_flutter_project/presentation/auth/screens/signin_screen.dart';
 import 'package:first_flutter_project/presentation/auth/screens/signup_screen.dart';
 import 'package:first_flutter_project/presentation/home/screens/home_page.dart';
+import 'package:first_flutter_project/presentation/profile/screens/profile.dart';
 import 'package:first_flutter_project/presentation/shopping/screens/shopping_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -77,19 +78,18 @@ class MyApp extends StatelessWidget {
           ? const ShoppingPage()
           : BlocProvider(
               create: (context) => AuthBloc(),
-              child: SigninScreen(),
+              child: const SigninScreen(),
             ),
+
       routes: {
         '/signin': (context) => BlocProvider(
               create: (context) => AuthBloc(),
-              child: SigninScreen(),
+              child: const SigninScreen(),
             ),
-        '/signup': (context) => BlocProvider(
-              create: (context) => AuthBloc(),
-              child: SignupScreen(),
-            ),
+        '/signup': (context) => const SignupScreen(),
         '/home': (context) => const HomePage(),
         '/shopping': (context) => const ShoppingPage(),
+        '/profile': (context) => const MyProfile(),
       },
     );
   }

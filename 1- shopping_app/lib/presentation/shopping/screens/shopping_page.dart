@@ -6,6 +6,7 @@ import 'package:first_flutter_project/data/models/product_model.dart';
 import 'package:first_flutter_project/data/prefs/shared_prefs.dart';
 import 'package:first_flutter_project/presentation/auth/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:local_auth/local_auth.dart';
 
 class ShoppingPage extends StatefulWidget {
   const ShoppingPage({super.key});
@@ -22,6 +23,16 @@ class _ShoppingPageState extends State<ShoppingPage> {
     cntxt = context;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Prefs.setLoginState(isLogged: false);
+            Navigator.of(context).pushAndRemoveUntil(
+              createFadeRoute(const SigninScreen()),
+              (route) => false,
+            );
+          },
+          icon: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
+        ),
         centerTitle: true,
         title: Text(
           'shopping_page'.tr(),
@@ -29,19 +40,57 @@ class _ShoppingPageState extends State<ShoppingPage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              Prefs.setLoginState(isLogged: false);
-              Navigator.of(context).pushAndRemoveUntil(
-                createFadeRoute(SigninScreen()),
-                (route) => false,
-              );
-            },
-            icon: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
+            onPressed: () async => await _auth(),
+            icon: const Icon(Icons.person_rounded, color: Colors.white),
           ),
         ],
       ),
       body: _body(),
     );
+  }
+
+  Future _auth() async {
+    try {
+      final LocalAuthentication auth = LocalAuthentication();
+      final bool isSupported = await auth.isDeviceSupported();
+      final bool canAuthenticate = await auth.canCheckBiometrics;
+
+      debugPrint('Device Supported: $isSupported');
+      debugPrint('Can Check Biometrics: $canAuthenticate');
+
+      if (canAuthenticate || isSupported) {
+        final availableBiometrics = await auth.getAvailableBiometrics();
+        debugPrint('Available Biometrics: $availableBiometrics');
+
+        if (availableBiometrics.isNotEmpty) {
+          try {
+            final bool didAuthenticate = await auth.authenticate(
+              localizedReason: 'Please authenticate to show account balance',
+              options: const AuthenticationOptions(biometricOnly: true),
+            );
+            if (didAuthenticate) {
+              Navigator.of(context).pushNamed('/profile');
+            } else {
+              _snackbar('Failed to authenticate');
+            }
+          } catch (e) {
+            _snackbar('Authentication Error: ${e.toString()}');
+          }
+        } else {
+          _snackbar('No Biometrics Available');
+        }
+      } else {
+        _snackbar('Device Not Supported');
+      }
+    } catch (e) {
+      _snackbar('Unexpected Error: ${e.toString()}');
+    }
+  }
+
+  _snackbar(String msg) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(msg)));
   }
 
   Widget _body() {

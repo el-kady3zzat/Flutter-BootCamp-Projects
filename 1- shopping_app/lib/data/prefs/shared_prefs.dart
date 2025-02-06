@@ -10,10 +10,20 @@ class Prefs {
 
   static Future<void> saveUser({
     required String name,
+    required String email,
     required String pass,
   }) async {
     await prefs.setString('name', name);
+    await prefs.setString('email', email);
     await prefs.setString('pass', pass);
+  }
+
+  static String getName() {
+    return prefs.getString('name') ?? 'N/A';
+  }
+
+  static String getemail() {
+    return prefs.getString('email') ?? 'N/A';
   }
 
   static Future<void> setLoginState({required bool isLogged}) async {

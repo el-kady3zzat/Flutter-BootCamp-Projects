@@ -112,50 +112,54 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget _signUpBtn() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 100.0),
-      child: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state is RegisterErrorState) {
-            return mySnackbar(context, state.errorMsg);
-          }
-        },
-        builder: (context, state) {
-          if (state is RegisterState) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is RegisterSuccessState) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              // Show success msg
-              mySnackbar(context, 'Accuont Created Successfully');
-              // Navigate to signin screen
-              Navigator.of(context).pushAndRemoveUntil(
-                createFadeRoute(const SigninScreen()),
-                (route) => false,
+      child: BlocProvider(
+        create: (context) => AuthBloc(),
+        child: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is RegisterErrorState) {
+              return mySnackbar(context, state.errorMsg);
+            }
+          },
+          builder: (context, state) {
+            if (state is RegisterState) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is RegisterSuccessState) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                // Show success msg
+                mySnackbar(context, 'Accuont Created Successfully');
+                // Navigate to signin screen
+                Navigator.of(context).pushAndRemoveUntil(
+                  createFadeRoute(const SigninScreen()),
+                  (route) => false,
+                );
+              });
+              // Save user data in prefs
+              Prefs.saveUser(
+                name: _nameController.text,
+                email: _emailController.text,
+                pass: _passController.text,
               );
-            });
-            // Save user data in prefs
-            Prefs.saveUser(
-              name: _nameController.text,
-              pass: _passController.text,
-            );
-          }
+            }
 
-          return SnaporaButton(
-            text: 'sign_up'.tr(),
-            onPress: () {
-              if (_signupFormKey.currentState!.validate()) {
-                _passController.text != _confirmPassController.text
-                    ? mySnackbar(context, 'password_do_not_match')
-                    : context.read<AuthBloc>().add(
-                          RegisterEvent(
-                            email: _emailController.text,
-                            password: _passController.text,
-                          ),
-                        );
-              }
-            },
-            width: 20,
-            height: 15.5,
-          );
-        },
+            return SnaporaButton(
+              text: 'sign_up'.tr(),
+              onPress: () {
+                if (_signupFormKey.currentState!.validate()) {
+                  _passController.text != _confirmPassController.text
+                      ? mySnackbar(context, 'password_do_not_match')
+                      : context.read<AuthBloc>().add(
+                            RegisterEvent(
+                              email: _emailController.text,
+                              password: _passController.text,
+                            ),
+                          );
+                }
+              },
+              width: 20,
+              height: 15.5,
+            );
+          },
+        ),
       ),
     );
   }

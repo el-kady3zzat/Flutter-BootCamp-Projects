@@ -20,15 +20,15 @@ class HomePage extends StatelessWidget {
   // Method to define the body content of the screen.
   Widget _body(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0), // Adds padding around the content.
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         // Centers the content vertically and horizontally.
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _imgs(), // Displays two images.
-          _space(5), // Adds vertical space between widgets.
-          _txt(), // Displays a descriptive text.
+          _imgs(),
+          _space(5),
+          _txt(),
         ],
       ),
     );
@@ -64,11 +64,11 @@ class HomePage extends StatelessWidget {
   // Method to display a text widget.
   Widget _txt() {
     return Text(
-      'The two images are displayed', // Text displayed below the images.
+      'The two images are displayed',
       style: TextStyle(
-        fontSize: 20, // Sets the font size.
-        fontWeight: FontWeight.bold, // Makes the text bold.
-        color: Colors.blue[900], // Sets the text color to dark blue.
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Colors.blue[900],
       ),
     );
   }

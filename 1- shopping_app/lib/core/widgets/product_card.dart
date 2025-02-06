@@ -122,7 +122,7 @@ class ProductCard extends StatelessWidget {
           '\$ ${product.price.toInt()}',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: product.hasSale == true ? 16 : 20,
+            fontSize: product.hasSale == true ? 16 : 18,
             color: product.hasSale == true ? Colors.orange : Colors.white,
             decoration:
                 product.hasSale == true ? TextDecoration.lineThrough : null,
@@ -189,7 +189,7 @@ class ProductCard extends StatelessWidget {
 
   Widget _stock() {
     return Container(
-      height: 20,
+      height: 18,
       width: double.infinity,
       decoration: BoxDecoration(
         color: product.stock < 11.0 ? Colors.orange : Colors.green,

@@ -1,6 +1,6 @@
 # Flutter Auth & Shopping App
 
-A Flutter app with **Firebase Authentication**, **Bloc state management**, and a shopping interface. Users can register, log in, and browse products.
+A Flutter app with **Firebase Authentication**, **Bloc state management**, **local storage**, **biometric authentication**, and a **shopping interface**.  Users can register, log in, browse products, and view their profile.
 
 ## Key Features
 - **Authentication**:  
@@ -8,11 +8,21 @@ A Flutter app with **Firebase Authentication**, **Bloc state management**, and a
   - Login state persistence via `SharedPreferences`.  
 - **State Management**:  
   - Bloc pattern for handling auth states (`AuthBloc`, `AuthEvent`, `AuthState`).  
+- **Profile Management**:  
+  - View user profile with name and email.  
+  - Biometric authentication (fingerprint) for secure access.
 - **Shopping Page**:  
   - Product carousels, grids, and hot offers.  
   - Responsive UI with `SizeConfig` for screen adaptation.  
 - **Localization**:  
   - Supports English and Arabic via `EasyLocalization`.  
+
+## Updated Features
+- **Biometric Authentication**:  
+  - Users can securely access their profile using fingerprint or face ID.  
+  - Fallback to regular navigation if biometrics are unavailable.  
+- **Profile Screen**:  
+  - Displays user name and email stored in `SharedPreferences`. 
 
 ## Project Structure
 | File                | Purpose                                  |
@@ -24,6 +34,7 @@ A Flutter app with **Firebase Authentication**, **Bloc state management**, and a
 | `signin_screen.dart`| Sign-in UI with form validation.         |
 | `signup_screen.dart`| Sign-up UI with password confirmation.   |
 | `shopping_page.dart`| Product listings and interactive UI.     |
+| `profile.dart`      | Profile UI with user details.            |
 | `main.dart`         | App entry, theme, and routing.           |
 
 ## Dependencies
@@ -48,7 +59,7 @@ A Flutter app with **Firebase Authentication**, **Bloc state management**, and a
 
 **Video**
 
-https://github.com/user-attachments/assets/3801652a-3195-48b7-84f9-22a49d827154
+https://github.com/user-attachments/assets/bb16ee55-07d8-451e-8c90-e02e2693708f
 
 ---
 
