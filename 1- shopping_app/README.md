@@ -24,6 +24,15 @@ A Flutter app with **Firebase Authentication**, **Bloc state management**, **loc
 - **Profile Screen**:  
   - Displays user name and email stored in `SharedPreferences`. 
 
+## Used Permissions
+- `<uses-permission android:name="android.permission.USE_BIOMETRIC" />`
+- `<uses-permission android:name="android.permission.USE_FINGERPRINT" />`
+
+## Meta-Data
+- `<meta-data
+            android:name="androidx.biometric.BiometricManager.Authenticators"
+            android:value="BIOMETRIC_STRONG | DEVICE_CREDENTIAL" />`
+
 ## Project Structure
 | File                | Purpose                                  |
 |---------------------|------------------------------------------|
